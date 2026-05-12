@@ -35,12 +35,9 @@ def load_images_from_folder(folder_path):
                 if img is not None:
                     # 1. 轉灰階
                     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-                    # 2. 高斯模糊去雜訊與 Canny 邊緣檢測
-                    blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-                    edges = cv2.Canny(blurred, 30, 150)
-                    # 3. 縮放至 64x64
-                    resized = cv2.resize(edges, (64, 64))
-                    # 4. 攤平為一維陣列
+                    # 2. 縮放至 64x64
+                    resized = cv2.resize(gray, (64, 64))
+                    # 3. 攤平為一維陣列
                     images.append(resized.flatten())
                     labels.append(label_idx)
                     

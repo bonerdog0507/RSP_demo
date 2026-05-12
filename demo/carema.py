@@ -45,17 +45,15 @@ def main():
             # 影像前處理 (必須與訓練時一模一樣)
             # 1. 轉灰階
             gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-            # 2. 高斯模糊與 Canny 邊緣檢測
-            blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-            edges = cv2.Canny(blurred, 30, 150)
-            # 3. 縮放至 64x64
-            resized = cv2.resize(edges, (64, 64))
+            # 2. 縮放至 64x64
+            resized = cv2.resize(gray, (64, 64))
             
-            # 【SVM 眼中的畫面】
+            # 【新增：讓您看見 SVM 眼中的畫面】
+            # 把這張 64x64 圖片放大一點顯示，方便您觀察背景和手勢的對比度
             debug_view = cv2.resize(resized, (250, 250))
-            cv2.imshow("SVM Vision (Edges)", debug_view)
+            cv2.imshow("SVM Vision (Debug)", debug_view)
 
-            # 4. 攤平
+            # 3. 攤平
             flattened = resized.flatten()
             
             # 正規化
