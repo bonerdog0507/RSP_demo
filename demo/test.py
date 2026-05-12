@@ -50,7 +50,9 @@ def main():
                 if img is not None:
                     # 資料前處理 (必須與訓練時一致)
                     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-                    resized = cv2.resize(gray, (64, 64))
+                    blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+                    edges = cv2.Canny(blurred, 30, 150)
+                    resized = cv2.resize(edges, (64, 64))
                     X_test.append(resized.flatten())
                     y_test.append(label_idx)
 
